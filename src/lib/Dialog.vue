@@ -6,7 +6,7 @@
         <div class="gulu-dialog">
           <header><slot name="title" /><span class="gulu-dialog-close" @click="close"></span></header>
           <main>
-            <slot name="main"/>
+            <slot name="content"/>
           </main>
           <footer>
             <Button @click="ok">OK</Button>
@@ -56,8 +56,9 @@ export default {
      }
    }
    const cancel = () => {
-     context.emit('cancel')
-     close()
+    if(props.cancel?.()){
+       close()
+     }
    }
    return {close,onClickOverlay,ok,cancel}
   }
