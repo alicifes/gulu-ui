@@ -2,7 +2,15 @@
   <div>dialog示例</div>
   <h1>示例1</h1>
   <Button @click="toggle">toggle</Button>
-  <Dialog v-model:visible="visible" :close-on-click-overlay="false" :ok="f1" :cancel="f2"></Dialog>
+  <Dialog v-model:visible="visible" :close-on-click-overlay="false" :ok="f1" :cancel="f2">
+    <template v-slot:title>
+       <strong>提示</strong>
+    </template>
+    <template v-slot:main>
+      <div>测试1</div>
+      <div>测试1</div>
+    </template>
+  </Dialog>
 </template>
 
 <script>
