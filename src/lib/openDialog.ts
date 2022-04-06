@@ -6,7 +6,7 @@ export const openDialog = (options) => {
   const {title, content,ok,cancel} = options;
   const div = document.createElement('div');
   document.body.appendChild(div);
-  const cloes = () => {
+  const close = () => {
     // @ts-ignore
     app.unmount(div);
     div.remove();
@@ -16,7 +16,7 @@ export const openDialog = (options) => {
       return h(Dialog, {
         visible: true, 'onUpdate:visible': (newVisible) => {
           if (newVisible === false) {
-            cloes();
+            close();
           }
         },ok,cancel
       }, {title, content});
