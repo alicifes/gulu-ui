@@ -1,8 +1,9 @@
 <template>
   <div class="gulu-tabs">
-    <div class="gulu-tabs-nav">
+    <div class="gulu-tabs-nav" ref="container">
       <div class="gulu-tabs-nav-item" :class="{selected:t===selected}" v-for="(t,index) in titles" :key="index"
-           @click="select(t)">{{ t }}
+           :ref="el=>{if(el) navItems[index]=el}" @click="select(t)">{{ t }}
+        <div class="gulu-tabs-nav-indicator" ref="indicator"></div>
       </div>
     </div>
     <div class="gulu-tabs-content">
@@ -14,7 +15,7 @@
 
 <script lang="ts">
 import Tab from '../lib/Tab.vue';
-import {computed} from 'vue';
+import {computed, onMounted, ref} from 'vue';
 
 export default {
   props: {
@@ -23,24 +24,33 @@ export default {
     }
   },
   setup(props, context) {
+    const navItems = ref<HTMLDivElement[]>([]);
+    const indicator = ref<HTMLDivElement>(null);
     const defaults = context.slots.default();
+    onMounted(() => {
+      const divs = navItems.value;
+      const result = divs.filter(div => div.classList.contains('selected'))[0];
+      const {width} = result.getBoundingClientRect();
+      console.log(indicator.value);
+      indicator.value.style.width=width+'px'
+    });
     defaults.forEach((tag) => {
       if (tag.type !== Tab) {
         throw Error('内部的组件必须为Tab');
       }
     });
     const titles = defaults.map((tags) => {
-      return tags.props.title
+      return tags.props.title;
     });
-    const current= computed(()=>{
-       return defaults.filter((tag)=>{
-        return tag.props.title = props.selected
-      })[0]
+    const current = computed(() => {
+      return defaults.filter((tag) => {
+        return tag.props.title = props.selected;
+      })[0];
     });
-    const select = (tags:string) => {
+    const select = (tags: string) => {
       context.emit('update:selected', tags);
     };
-    return {defaults, titles,current, select};
+    return {navItems,indicator, defaults, titles, current, select};
   }
 };
 </script>
@@ -54,6 +64,7 @@ $border-color: #d9d9d9;
     display: flex;
     color: $color;
     border-bottom: 1px solid $border-color;
+    position: relative;
 
     &-item {
       padding: 8px 0;
@@ -67,6 +78,15 @@ $border-color: #d9d9d9;
       &.selected {
         color: $blue;
       }
+    }
+
+    &-indicator {
+      position: absolute;
+      height: 3px;
+      background-color: $blue;
+      left: 0;
+      bottom: -1px;
+      width: 100px;
     }
   }
 
