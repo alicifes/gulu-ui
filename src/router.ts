@@ -7,7 +7,8 @@ import DialogDemo from './components/DialogDemo.vue'
 import TabsDemo from './components/TabsDemo.vue'
 import DocDemo from './components/DocDemo.vue'
 import GetStarted from './views/GetStarted.vue'
-import Install from './views/Install.vue'
+// @ts-ignore
+import Install from  './views/Install.vue'
 import Intro from './views/Intro.vue'
 
 

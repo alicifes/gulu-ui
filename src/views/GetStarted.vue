@@ -1,15 +1,5 @@
 <template>
-  <div>
-    开始
-  </div>
+  <Markdown path="../markdown/get-started.md"></Markdown>
 </template>
 
-<script>
-export default {
-  name: "GetStarted"
-}
-</script>
 
-<style scoped>
-
-</style>
