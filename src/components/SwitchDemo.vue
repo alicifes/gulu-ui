@@ -4,31 +4,8 @@
     <Switch :value = 'bool' @update:value="bool=$event"/>
   </div>-->
   <div>
-    <h1>Switch 组件示例 </h1>
-    <div class="demo">
-      <h2>常规用法</h2>
-      <div class="demo-component">
-        <component :is="Switch1Demo"></component>
-      </div>
-      <div class="demo-actions">
-        <Button>查看代码</Button>
-      </div>
-      <div class="demo-code">
-        <pre class="language-html" v-html="Prism.highlight(Switch1Demo.__sourceCode,Prism.languages.html,'html')" />
-      </div>
-    </div>
-    <div class="demo">
-      <h2>支持 disabled </h2>
-      <div class="demo-component">
-        <component :is="Switch2Demo"></component>
-      </div>
-      <div class="demo-actions">
-        <Button>查看代码</Button>
-      </div>
-      <div class="demo-code">
-        <pre class="language-html" v-html="Prism.highlight(Switch2Demo.__sourceCode,Prism.languages.html,'html')" />
-      </div>
-    </div>
+    <Demo :component="Switch1Demo" />
+    <Demo :component="Switch2Demo" />
   </div>
 </template>
 
@@ -40,12 +17,13 @@ import Switch1Demo from './Switch1.demo.vue'
 import Switch2Demo from './Switch2.demo.vue'
 import 'prismjs'
 import 'prismjs/themes/prism.css'
+import Demo from './Demo.vue';
 
 const Prism = (window as any).Prism;//需要暴露出去才能被接受
 
 export default {
   name: 'SwitchDemo',
-  components: {Switch,Button},
+  components: {Demo,Switch,Button},
   setup(){
    const bool = ref(true)
    return {bool,Switch1Demo,Switch2Demo,Prism}
