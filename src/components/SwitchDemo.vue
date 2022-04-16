@@ -3,6 +3,7 @@
     <Switch v-model:value = 'bool'/>
     <Switch :value = 'bool' @update:value="bool=$event"/>
   </div>-->
+  <h1>Switch组件展示</h1>
   <div>
     <Demo :component="Switch1Demo" />
     <Demo :component="Switch2Demo" />
